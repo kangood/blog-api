@@ -13,6 +13,7 @@ import { NoticeModule } from './modules/notice/notice.module';
 import { OrgModule } from './modules/org/org.module';
 import { OSSModule } from './modules/restful/oss/oss.module';
 import { SystemModule } from './modules/system/system.module';
+import { TagModule } from './modules/tag/tag.module';
 
 const envFilePath = ['.env'];
 
@@ -31,6 +32,7 @@ if (IS_DEV) {
         SystemModule,
         OrgModule,
         NoticeModule,
+        TagModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath,

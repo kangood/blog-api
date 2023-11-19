@@ -3,8 +3,8 @@ import { Column, CreateDateColumn, DeleteDateColumn, Entity, UpdateDateColumn } 
 import { BoolBitTransformer } from '@/modules/core/helpers/utils';
 import { BaseEntity } from '@/modules/database/base/entity';
 
-@Entity('notice', { schema: 'blog' })
-export class NoticeEntity extends BaseEntity {
+@Entity('tag', { schema: 'blog' })
+export class TagEntity extends BaseEntity {
     @Column('varchar', {
         name: 'content',
         nullable: true,

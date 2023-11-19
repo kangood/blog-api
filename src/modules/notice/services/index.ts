@@ -1,1 +1,1 @@
-export * from './station.service';
+export * from './notice.service';
