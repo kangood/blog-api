@@ -5,6 +5,7 @@ import { APP_FILTER, APP_GUARD, APP_INTERCEPTOR, APP_PIPE } from '@nestjs/core';
 import { JwtService } from '@nestjs/jwt';
 
 import { database } from './config';
+import { ArticleModule } from './modules/article/article.module';
 import { AuthorityGuard } from './modules/auth/authority.guard';
 import { LoginGuard } from './modules/auth/login.guard';
 import { AppFilter, AppIntercepter, AppPipe } from './modules/core/providers';
@@ -33,6 +34,7 @@ if (IS_DEV) {
         OrgModule,
         NoticeModule,
         TagModule,
+        ArticleModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath,

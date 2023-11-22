@@ -1,11 +1,11 @@
 import { BaseRepository } from '@/modules/database/base';
 import { CustomRepository } from '@/modules/database/decorators';
 
-import { NoticeEntity } from '../entities';
+import { TagEntity } from '../entity';
 
-@CustomRepository(NoticeEntity)
-export class NoticeRepository extends BaseRepository<NoticeEntity> {
-    protected _qbName = 'notice';
+@CustomRepository(TagEntity)
+export class TagRepository extends BaseRepository<TagEntity> {
+    protected _qbName = 'tag';
 
     buildBaseQB() {
         return this.createQueryBuilder(this.qbName);

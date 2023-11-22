@@ -17,4 +17,4 @@ import * as service from './service';
     providers: [...Object.values(service)],
     exports: [...Object.values(service), DatabaseModule.forRepository(Object.values(repository))],
 })
-export class NoticeModule {}
+export class ArticleModule {}

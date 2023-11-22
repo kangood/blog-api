@@ -3,10 +3,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseModule } from '../database/database.module';
 
-import * as controllers from './controllers';
-import * as entities from './entities';
-import * as repositories from './repositories';
-import * as services from './services';
+import * as controllers from './controller';
+import * as entities from './entity';
+import * as repositories from './repository';
+import * as services from './service';
 
 @Module({
     imports: [

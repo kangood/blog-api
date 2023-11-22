@@ -3,8 +3,8 @@ import { Controller } from '@nestjs/common';
 import { BaseController } from '@/modules/restful/base';
 import { Crud } from '@/modules/restful/decorators';
 
-import { CreateTagDto, QueryTagDto, UpdateTagDto } from '../dtos';
-import { TagService } from '../services';
+import { CreateTagDto, QueryTagDto, UpdateTagDto } from '../dto';
+import { TagService } from '../service';
 
 @Crud({
     id: 'tag',

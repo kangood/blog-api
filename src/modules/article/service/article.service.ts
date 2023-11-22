@@ -10,29 +10,29 @@ import { PublicOrderType } from '@/modules/system/constants';
 
 import { getSnowflakeId } from '@/modules/system/helpers';
 
-import { CreateTagDto, QueryTagDto, UpdateTagDto } from '../dtos';
-import { TagEntity } from '../entities';
-import { TagRepository } from '../repositories';
+import { CreateArticleDto, QueryArticleDto, UpdateArticleDto } from '../dto';
+import { ArticleEntity } from '../entity';
+import { ArticleRepository } from '../repository';
 
-// 标签查询接口
+// 博客查询接口
 type FindParams = {
-    [key in keyof Omit<QueryTagDto, 'limit' | 'page'>]: QueryTagDto[key];
+    [key in keyof Omit<QueryArticleDto, 'limit' | 'page'>]: QueryArticleDto[key];
 };
 
 /**
- * 标签数据操作
+ * 博客数据操作
  */
 @Injectable()
-export class TagService extends BaseService<TagEntity, TagRepository, FindParams> {
-    constructor(protected repository: TagRepository) {
+export class ArticleService extends BaseService<ArticleEntity, ArticleRepository, FindParams> {
+    constructor(protected repository: ArticleRepository) {
         super(repository);
     }
 
     /**
-     * 新建标签
+     * 新建博客
      * @param data
      */
-    async create(data: CreateTagDto) {
+    async create(data: CreateArticleDto) {
         // 获取通用参数
         data.id = getSnowflakeId();
         // 执行插入
@@ -40,24 +40,24 @@ export class TagService extends BaseService<TagEntity, TagRepository, FindParams
     }
 
     /**
-     * 更新标签
+     * 更新博客
      * @param data
      */
-    async update(data: UpdateTagDto) {
+    async update(data: UpdateArticleDto) {
         await this.repository.update(data.id, omit(data, ['id']));
         return this.detail(data.id);
     }
 
     /**
-     * 构建标签列表查询器
+     * 构建博客列表查询器
      * @param queryBuilder 初始查询构造器
      * @param options 排查分页选项后的查询选项
      * @param callback 添加额外的查询
      */
     protected async buildListQB(
-        queryBuilder: SelectQueryBuilder<TagEntity>,
+        queryBuilder: SelectQueryBuilder<ArticleEntity>,
         options: FindParams,
-        callback?: QueryHook<TagEntity>,
+        callback?: QueryHook<ArticleEntity>,
     ) {
         // 调用父类通用qb处理方法
         const qb = await super.buildListQB(queryBuilder, options, callback);
@@ -71,11 +71,11 @@ export class TagService extends BaseService<TagEntity, TagRepository, FindParams
     }
 
     /**
-     * 对标签进行排序的Query构建
+     * 对博客进行排序的Query构建
      * @param qb
      * @param orderBy 排序方式
      */
-    protected addOrderByQuery(qb: SelectQueryBuilder<TagEntity>, orderBy?: PublicOrderType) {
+    protected addOrderByQuery(qb: SelectQueryBuilder<ArticleEntity>, orderBy?: PublicOrderType) {
         const queryName = this.repository.qbName;
         switch (orderBy) {
             // 按时间倒序

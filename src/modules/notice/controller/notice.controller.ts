@@ -3,8 +3,8 @@ import { Controller } from '@nestjs/common';
 import { BaseController } from '@/modules/restful/base';
 import { Crud } from '@/modules/restful/decorators';
 
-import { CreateNoticeDto, QueryNoticeDto, UpdateNoticeDto } from '../dtos';
-import { NoticeService } from '../services';
+import { CreateNoticeDto, QueryNoticeDto, UpdateNoticeDto } from '../dto';
+import { NoticeService } from '../service';
 
 @Crud({
     id: 'notice',
