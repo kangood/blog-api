@@ -3,21 +3,18 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { DatabaseModule } from '../database/database.module';
 
-import * as controllers from './controller';
-import * as entities from './entity';
-import * as repositories from './repository';
-import * as services from './service';
+import * as controller from './controller';
+import * as entity from './entity';
+import * as repository from './repository';
+import * as service from './service';
 
 @Module({
     imports: [
-        TypeOrmModule.forFeature(Object.values(entities)),
-        DatabaseModule.forRepository(Object.values(repositories)),
+        TypeOrmModule.forFeature(Object.values(entity)),
+        DatabaseModule.forRepository(Object.values(repository)),
     ],
-    controllers: [...Object.values(controllers)],
-    providers: [...Object.values(services)],
-    exports: [
-        ...Object.values(services),
-        DatabaseModule.forRepository(Object.values(repositories)),
-    ],
+    controllers: [...Object.values(controller)],
+    providers: [...Object.values(service)],
+    exports: [...Object.values(service), DatabaseModule.forRepository(Object.values(repository))],
 })
 export class TagModule {}
