@@ -1,5 +1,9 @@
+import { readFile } from 'fs/promises';
+
+import { join } from 'path';
+
 import { Injectable } from '@nestjs/common';
-import { omit } from 'lodash';
+import { isEmpty, omit } from 'lodash';
 
 import { SelectQueryBuilder } from 'typeorm';
 
@@ -26,6 +30,19 @@ type FindParams = {
 export class ArticleService extends BaseService<ArticleEntity, ArticleRepository, FindParams> {
     constructor(protected repository: ArticleRepository) {
         super(repository);
+    }
+
+    /**
+     * 获取md文件数据
+     */
+    async getMdFileData(fileName: string) {
+        let mdFileData = '';
+        // 加载并读取已上传的文件数据
+        const filePath = join(process.env.MD_FILE_PATH, fileName);
+        await readFile(filePath).then(async (data) => {
+            mdFileData = data.toString();
+        });
+        return mdFileData;
     }
 
     /**
@@ -62,9 +79,21 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
         // 调用父类通用qb处理方法
         const qb = await super.buildListQB(queryBuilder, options, callback);
         // 子类自我实现
-        const { orderBy } = options;
+        const { orderBy, title, classes, tags } = options;
+        const queryName = this.repository.qbName;
         // 对几个可选参数的where判断
-        // ...
+        if (!isEmpty(title)) {
+            qb.andWhere(`${queryName}.title like '%${title}%'`);
+        }
+        if (!isEmpty(classes)) {
+            qb.andWhere(`${queryName}.classes = '%${classes}%'`);
+        }
+        if (!isEmpty(tags)) {
+            // 把'yyds,awsl'转换为"'yyds','awsl'"
+            const tagArray = tags.split(',');
+            const formattedTags = tagArray.map((tag) => `'${tag}'`).join(',');
+            qb.andWhere(`JSON_CONTAINS(${queryName}.tags, JSON_ARRAY(${formattedTags}))`);
+        }
         // 排序
         this.addOrderByQuery(qb, orderBy);
         return qb;

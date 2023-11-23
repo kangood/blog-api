@@ -9,7 +9,7 @@ export class ArticleEntity extends BaseEntity {
         name: 'title',
         nullable: true,
         comment: '标题',
-        length: 32,
+        length: 128,
     })
     title: string | null;
 
@@ -41,7 +41,7 @@ export class ArticleEntity extends BaseEntity {
         name: 'file_name',
         nullable: true,
         comment: '文件名称',
-        length: 64,
+        length: 128,
     })
     fileName: string | null;
 

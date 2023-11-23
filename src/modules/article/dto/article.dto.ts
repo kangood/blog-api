@@ -16,6 +16,15 @@ export class QueryArticleDto extends ListWithTrashedQueryDto {
     })
     @IsOptional()
     orderBy?: PublicOrderType;
+
+    @IsOptional()
+    title?: string;
+
+    @IsOptional()
+    classes?: string;
+
+    @IsOptional()
+    tags?: string;
 }
 
 /**
