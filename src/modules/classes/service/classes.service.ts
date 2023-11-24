@@ -11,7 +11,7 @@ import { PublicOrderType } from '@/modules/system/constants';
 import { getSnowflakeId } from '@/modules/system/helpers';
 
 import { CreateClassesDto, QueryClassesDto, UpdateClassesDto } from '../dto';
-import { ClassesEntity } from '../entity';
+import { ArticleClassesCountView, ClassesEntity } from '../entity';
 import { ClassesRepository } from '../repository';
 
 // 标签查询接口
@@ -26,6 +26,37 @@ type FindParams = {
 export class ClassesService extends BaseService<ClassesEntity, ClassesRepository, FindParams> {
     constructor(protected repository: ClassesRepository) {
         super(repository);
+    }
+
+    /**
+     * 分组查询各个分类对应文章数量
+     */
+    async countListArticleClasses(): Promise<ArticleClassesCountView[]> {
+        // 一直报错：RangeError: Maximum call stack size exceeded; at TransformOperationExecutor.transform
+        // const qb = await super.buildListQB(this.repository.buildBaseQB());
+        // qb.select('MAX(article.id)', 'id')
+        //     .addSelect('MAX(article.classes)', 'classes')
+        //     .addSelect('COUNT(*)', 'count');
+        // qb.groupBy('classes');
+        // qb.getRawMany();
+
+        // 使用原生SQL
+        return this.repository.manager.query(
+            '    SELECT' +
+                '    cl.id AS classesId,' +
+                '    MAX(cl.content) AS classesName,' +
+                '    COUNT(ar.id) AS count ' +
+                'FROM' +
+                '    classes cl ' +
+                'LEFT JOIN' +
+                '    article ar ON cl.content = ar.classes AND ar.deleted_at IS NULL ' +
+                'WHERE' +
+                '    cl.deleted_at IS NULL ' +
+                'GROUP BY' +
+                '    cl.id ' +
+                'ORDER BY' +
+                '    count desc',
+        );
     }
 
     /**
