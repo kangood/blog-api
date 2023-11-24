@@ -27,16 +27,14 @@ export function toNull(value?: string | null): string | null | undefined {
  * MySQL中bit类型转换为boolean
  */
 export class BoolBitTransformer implements ValueTransformer {
-    constructor(private defaultValue?: number) {}
-
     // To db from typeorm
-    to(value: boolean | null) {
+    to(value: boolean | null): Buffer | null {
         if (value === null) {
             return null;
         }
         const res = Buffer.from('1');
         res[0] = value ? 1 : 0;
-        return this.defaultValue ?? res;
+        return res;
     }
 
     // From db to typeorm

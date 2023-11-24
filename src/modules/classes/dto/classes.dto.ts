@@ -10,7 +10,7 @@ import { PublicOrderType } from '@/modules/system/constants';
  * 分页查询验证
  */
 @DtoValidation({ type: 'query' })
-export class QueryNoticeDto extends ListWithTrashedQueryDto {
+export class QueryClassesDto extends ListWithTrashedQueryDto {
     @IsEnum(PublicOrderType, {
         message: `排序规则必须是${Object.values(PublicOrderType).join(',')}其中一项`,
     })
@@ -22,9 +22,9 @@ export class QueryNoticeDto extends ListWithTrashedQueryDto {
  * 创建验证
  */
 @DtoValidation({ groups: ['create'] })
-export class CreateNoticeDto {
-    @IsNumber(undefined, { groups: ['update'], message: '公告ID格式错误' })
-    @IsDefined({ groups: ['update'], message: '公告ID必须指定' })
+export class CreateClassesDto {
+    @IsNumber(undefined, { groups: ['update'], message: '分类ID格式错误' })
+    @IsDefined({ groups: ['update'], message: '分类ID必须指定' })
     id!: number;
 
     /**
@@ -37,4 +37,4 @@ export class CreateNoticeDto {
  * 更新验证
  */
 @DtoValidation({ groups: ['update'] })
-export class UpdateNoticeDto extends PartialType(CreateNoticeDto) {}
+export class UpdateClassesDto extends PartialType(CreateClassesDto) {}

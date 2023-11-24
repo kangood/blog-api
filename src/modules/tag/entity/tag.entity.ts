@@ -17,7 +17,7 @@ export class TagEntity extends BaseEntity {
         name: 'state',
         nullable: true,
         comment: '状态',
-        transformer: new BoolBitTransformer(1),
+        transformer: new BoolBitTransformer(),
     })
     state: boolean | null;
 

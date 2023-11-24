@@ -8,6 +8,8 @@ import { BaseService } from '@/modules/database/base';
 import { QueryHook } from '@/modules/database/types';
 import { PublicOrderType } from '@/modules/system/constants';
 
+import { getSnowflakeId } from '@/modules/system/helpers';
+
 import { CreateNoticeDto, QueryNoticeDto, UpdateNoticeDto } from '../dto';
 import { NoticeEntity } from '../entity';
 import { NoticeRepository } from '../repository';
@@ -32,9 +34,10 @@ export class NoticeService extends BaseService<NoticeEntity, NoticeRepository, F
      */
     async create(data: CreateNoticeDto) {
         // 获取通用参数
-        const createParams = await super.create(data);
+        data.id = getSnowflakeId();
+        data.state = true;
         // 执行插入
-        return this.repository.save(createParams);
+        return this.repository.save(data);
     }
 
     /**

@@ -26,6 +26,11 @@ export class CreateTagDto {
     @IsNumber(undefined, { groups: ['update'], message: '标签ID格式错误' })
     @IsDefined({ groups: ['update'], message: '标签ID必须指定' })
     id!: number;
+
+    /**
+     * 状态，用于在create时赋初始值
+     */
+    state: boolean;
 }
 
 /**

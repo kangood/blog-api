@@ -8,6 +8,7 @@ import { database } from './config';
 import { ArticleModule } from './modules/article/article.module';
 import { AuthorityGuard } from './modules/auth/authority.guard';
 import { LoginGuard } from './modules/auth/login.guard';
+import { ClassesModule } from './modules/classes/classes.module';
 import { AppFilter, AppIntercepter, AppPipe } from './modules/core/providers';
 import { DatabaseModule } from './modules/database/database.module';
 import { NoticeModule } from './modules/notice/notice.module';
@@ -35,6 +36,7 @@ if (IS_DEV) {
         NoticeModule,
         TagModule,
         ArticleModule,
+        ClassesModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath,

@@ -52,15 +52,22 @@ export class ArticleEntity extends BaseEntity {
         name: 'post',
         nullable: true,
         comment: '发布状态。true：已发布，false：草稿',
-        transformer: new BoolBitTransformer(0),
+        transformer: new BoolBitTransformer(),
     })
     post: boolean | null;
+
+    @Column('datetime', {
+        name: 'posted_at',
+        nullable: true,
+        comment: '发布时间',
+    })
+    postedAt: Date | null;
 
     @Column('bit', {
         name: 'state',
         nullable: true,
         comment: '状态',
-        transformer: new BoolBitTransformer(1),
+        transformer: new BoolBitTransformer(),
     })
     state: boolean | null;
 

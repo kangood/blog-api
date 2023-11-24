@@ -1,4 +1,4 @@
-import { readFile } from 'fs/promises';
+import { readFile, writeFile } from 'fs/promises';
 
 import { join } from 'path';
 
@@ -50,8 +50,13 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      * @param data
      */
     async create(data: CreateArticleDto) {
+        // 文章内容需要写入md文件
+        const filePath = join(process.env.MD_FILE_PATH, `${data.title}.mdx`);
+        writeFile(filePath, data.content);
         // 获取通用参数
         data.id = getSnowflakeId();
+        data.state = true;
+        data.post = false;
         // 执行插入
         return this.repository.save(data);
     }
@@ -61,7 +66,11 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      * @param data
      */
     async update(data: UpdateArticleDto) {
-        await this.repository.update(data.id, omit(data, ['id']));
+        // 文章内容需要写入md文件
+        const filePath = join(process.env.MD_FILE_PATH, data.fileName);
+        writeFile(filePath, data.content);
+        // 执行更新
+        await this.repository.update(data.id, omit(data, ['id', 'content']));
         return this.detail(data.id);
     }
 
