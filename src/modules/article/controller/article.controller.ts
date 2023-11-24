@@ -28,4 +28,12 @@ export class ArticleController extends BaseController<ArticleService> {
     getMdFileData(@Query('fileName') fileName: string) {
         return this.service.getMdFileData(fileName);
     }
+
+    /**
+     * 查询未分类的文章数量
+     */
+    @Get('countNotClassesArticle')
+    countNotClassesArticle() {
+        return this.service.countNotClassesArticle();
+    }
 }

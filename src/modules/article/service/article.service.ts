@@ -3,7 +3,7 @@ import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
 
 import { Injectable } from '@nestjs/common';
-import { isEmpty, omit } from 'lodash';
+import { isEmpty, isUndefined, omit } from 'lodash';
 
 import { SelectQueryBuilder } from 'typeorm';
 
@@ -43,6 +43,16 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
             mdFileData = data.toString();
         });
         return mdFileData;
+    }
+
+    /**
+     * 查询未分类的文章数量
+     */
+    async countNotClassesArticle() {
+        const data: [{ count: number }] = await this.repository.manager.query(
+            'SELECT count(*) AS count FROM article WHERE classes = ""',
+        );
+        return data[0].count;
     }
 
     /**
@@ -94,8 +104,8 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
         if (!isEmpty(title)) {
             qb.andWhere(`${queryName}.title like '%${title}%'`);
         }
-        if (!isEmpty(classes)) {
-            qb.andWhere(`${queryName}.classes = '%${classes}%'`);
+        if (!isUndefined(classes)) {
+            qb.andWhere(`${queryName}.classes = '${classes}'`);
         }
         if (!isEmpty(tags)) {
             // 把'yyds,awsl'转换为"'yyds','awsl'"

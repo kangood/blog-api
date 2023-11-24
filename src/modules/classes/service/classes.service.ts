@@ -44,7 +44,7 @@ export class ClassesService extends BaseService<ClassesEntity, ClassesRepository
         return this.repository.manager.query(
             '    SELECT' +
                 '    cl.id AS classesId,' +
-                '    MAX(cl.content) AS classesName,' +
+                '    cl.content AS classesName,' +
                 '    COUNT(ar.id) AS count ' +
                 'FROM' +
                 '    classes cl ' +
