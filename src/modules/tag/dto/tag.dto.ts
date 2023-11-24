@@ -1,10 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsDefined, IsEnum, IsNumber, IsOptional } from 'class-validator';
+import { IsDefined, IsEnum, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 import { DtoValidation } from '@/modules/core/decorators';
 
+import { IsUnique, IsUniqueExist } from '@/modules/database/constraints';
 import { ListWithTrashedQueryDto } from '@/modules/restful/dtos';
 import { PublicOrderType } from '@/modules/system/constants';
+
+import { TagEntity } from '../entity';
 
 /**
  * 分页查询验证
@@ -23,6 +26,18 @@ export class QueryTagDto extends ListWithTrashedQueryDto {
  */
 @DtoValidation({ groups: ['create'] })
 export class CreateTagDto {
+    @IsUnique(TagEntity, {
+        groups: ['create'],
+        message: '标签名称重复',
+    })
+    @IsUniqueExist(TagEntity, {
+        groups: ['update'],
+        message: '标签名称重复',
+    })
+    @IsNotEmpty({ groups: ['create'], message: '标签名称不能为空' })
+    @IsOptional({ groups: ['update'] })
+    content!: string;
+
     @IsNumber(undefined, { groups: ['update'], message: '标签ID格式错误' })
     @IsDefined({ groups: ['update'], message: '标签ID必须指定' })
     id!: number;

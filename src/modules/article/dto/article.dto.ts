@@ -1,10 +1,13 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsDefined, IsEnum, IsNumber, IsOptional } from 'class-validator';
+import { IsDefined, IsEnum, IsNotEmpty, IsNumber, IsOptional } from 'class-validator';
 
 import { DtoValidation } from '@/modules/core/decorators';
 
+import { IsUnique, IsUniqueExist } from '@/modules/database/constraints';
 import { ListWithTrashedQueryDto } from '@/modules/restful/dtos';
 import { PublicOrderType } from '@/modules/system/constants';
+
+import { ArticleEntity } from '../entity';
 
 /**
  * 分页查询验证
@@ -36,8 +39,17 @@ export class CreateArticleDto {
     @IsDefined({ groups: ['update'], message: '博客ID必须指定' })
     id!: number;
 
-    @IsDefined({ groups: ['create'], message: '标题必须传递' })
-    title: string;
+    @IsUnique(ArticleEntity, {
+        groups: ['create'],
+        message: '文章标题重复',
+    })
+    @IsUniqueExist(ArticleEntity, {
+        groups: ['update'],
+        message: '文章标题重复',
+    })
+    @IsNotEmpty({ groups: ['create'], message: '文章标题不能为空' })
+    @IsOptional({ groups: ['update'] })
+    title!: string;
 
     @IsDefined({ groups: ['create', 'update'], message: '文件内容必须传递' })
     content: string;
