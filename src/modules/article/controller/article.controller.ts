@@ -36,4 +36,12 @@ export class ArticleController extends BaseController<ArticleService> {
     countNotClassesArticle() {
         return this.service.countNotClassesArticle();
     }
+
+    /**
+     * 分组查询各个标签对应文章数量
+     */
+    @Get('countListArticleTag')
+    countListArticleTag() {
+        return this.service.countListArticleTag();
+    }
 }

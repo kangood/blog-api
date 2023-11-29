@@ -56,6 +56,23 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
     }
 
     /**
+     * 分组查询各个分类对应文章数量
+     */
+    async countListArticleTag() {
+        const data: [{ tag: string; count: number }] = await this.repository.manager.query(
+            '    SELECT' +
+                '    t1.tag,' +
+                '    count(*) AS count ' +
+                'FROM' +
+                '    article,' +
+                "    JSON_TABLE ( tags, '$[*]' COLUMNS ( tag VARCHAR ( 255 ) PATH '$' ) ) t1 " +
+                'GROUP BY' +
+                '    t1.tag',
+        );
+        return data;
+    }
+
+    /**
      * 新建博客
      * @param data
      */
