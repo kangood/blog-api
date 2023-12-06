@@ -41,15 +41,15 @@ export class CreateArticleDto {
 
     @IsUnique(ArticleEntity, {
         groups: ['create'],
-        message: '文章标题重复',
+        message: '英文标题重复',
     })
     @IsUniqueExist(ArticleEntity, {
         groups: ['update'],
-        message: '文章标题重复',
+        message: '英文标题重复',
     })
-    @IsNotEmpty({ groups: ['create'], message: '文章标题不能为空' })
+    @IsNotEmpty({ groups: ['create'], message: '英文标题不能为空' })
     @IsOptional({ groups: ['update'] })
-    title!: string;
+    titleEng!: string;
 
     @IsDefined({ groups: ['create', 'update'], message: '文件内容必须传递' })
     content: string;
@@ -70,6 +70,6 @@ export class CreateArticleDto {
  */
 @DtoValidation({ groups: ['update'] })
 export class UpdateArticleDto extends PartialType(CreateArticleDto) {
-    @IsDefined({ groups: ['update'], message: '文件名称必须传递' })
-    fileName: string;
+    @IsDefined({ groups: ['update'], message: '英文标题必须传递' })
+    titleEng: string;
 }

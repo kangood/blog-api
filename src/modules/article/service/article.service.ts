@@ -35,10 +35,10 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
     /**
      * 获取md文件数据
      */
-    async getMdFileData(fileName: string) {
+    async getMdFileData(titleEng: string) {
         let mdFileData = '';
         // 加载并读取已上传的文件数据
-        const filePath = join(process.env.MD_FILE_PATH, fileName);
+        const filePath = join(process.env.MD_FILE_PATH, `${titleEng}.mdx`);
         await readFile(filePath).then(async (data) => {
             mdFileData = data.toString();
         });
@@ -78,7 +78,7 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      */
     async create(data: CreateArticleDto) {
         // 文章内容需要写入md文件
-        const filePath = join(process.env.MD_FILE_PATH, `${data.title}.mdx`);
+        const filePath = join(process.env.MD_FILE_PATH, `${data.titleEng}.mdx`);
         writeFile(filePath, data.content);
         // 获取通用参数
         data.id = getSnowflakeId();
@@ -94,7 +94,7 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      */
     async update(data: UpdateArticleDto) {
         // 文章内容需要写入md文件
-        const filePath = join(process.env.MD_FILE_PATH, data.fileName);
+        const filePath = join(process.env.MD_FILE_PATH, `${data.titleEng}.mdx`);
         writeFile(filePath, data.content);
         // 执行更新
         await this.repository.update(data.id, omit(data, ['id', 'content']));

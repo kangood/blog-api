@@ -25,8 +25,8 @@ export class ArticleController extends BaseController<ArticleService> {
      * 获取md文件数据
      */
     @Get('getMdFileData')
-    getMdFileData(@Query('fileName') fileName: string) {
-        return this.service.getMdFileData(fileName);
+    getMdFileData(@Query('titleEng') titleEng: string) {
+        return this.service.getMdFileData(titleEng);
     }
 
     /**
