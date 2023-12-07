@@ -37,14 +37,6 @@ export class ArticleEntity extends BaseEntity {
     })
     url: string | null;
 
-    @Column('varchar', {
-        name: 'file_name',
-        nullable: true,
-        comment: '文件名称',
-        length: 128,
-    })
-    fileName: string | null;
-
     @Column('json', { name: 'tags', nullable: true, comment: '标签JSON数组' })
     tags: object | null;
 
@@ -62,6 +54,14 @@ export class ArticleEntity extends BaseEntity {
         comment: '发布时间',
     })
     postedAt: Date | null;
+
+    @Column('varchar', {
+        name: 'summary',
+        nullable: true,
+        comment: '概要',
+        length: 255,
+    })
+    summary: string | null;
 
     @Column('bit', {
         name: 'state',
