@@ -33,12 +33,20 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
     }
 
     /**
-     * 获取md文件数据
+     * 获取mdx文件数据
      */
-    async getMdFileData(titleEng: string) {
+    async getMdFileData(titleEng: string, author: string) {
         let mdFileData = '';
+        let filePath = '';
         // 加载并读取已上传的文件数据
-        const filePath = join(process.env.MD_FILE_PATH, `${titleEng}.mdx`);
+        if (titleEng) {
+            filePath = join(process.env.MD_FILE_PATH, `/blog/${titleEng}.mdx`);
+        } else if (author === 'kangod') {
+            filePath = join(process.env.MD_FILE_PATH, `/authors/kangod.mdx`);
+        }
+        if (filePath === '') {
+            return '';
+        }
         await readFile(filePath).then(async (data) => {
             mdFileData = data.toString();
         });
@@ -77,8 +85,8 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      * @param data
      */
     async create(data: CreateArticleDto) {
-        // 文章内容需要写入md文件
-        const filePath = join(process.env.MD_FILE_PATH, `${data.titleEng}.mdx`);
+        // 文章内容需要写入mdx文件
+        const filePath = join(process.env.MD_FILE_PATH, `/blog/${data.titleEng}.mdx`);
         writeFile(filePath, data.content);
         // 获取通用参数
         data.id = getSnowflakeId();
@@ -93,12 +101,32 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      * @param data
      */
     async update(data: UpdateArticleDto) {
-        // 文章内容需要写入md文件
-        const filePath = join(process.env.MD_FILE_PATH, `${data.titleEng}.mdx`);
+        // 文章内容需要写入mdx文件
+        const filePath = join(process.env.MD_FILE_PATH, `/blog/${data.titleEng}.mdx`);
         writeFile(filePath, data.content);
         // 执行更新
         await this.repository.update(data.id, omit(data, ['id', 'content']));
         return this.detail(data.id);
+    }
+
+    /**
+     * 修改关于信息
+     */
+    async updateAboutInfo(data: { aboutContent: string; mdxContent: string; isMe: boolean }) {
+        // 关于信息，写入mdx文件
+        const filePath = join(process.env.MD_FILE_PATH, `/authors/kangod.mdx`);
+        // 使用正则表达式匹配关于数据
+        let match;
+        if (data.isMe) {
+            match = data.mdxContent.match(/##\s*关于我\s*👨‍💻([\s\S]*?)(?=##|$)/);
+        } else {
+            match = data.mdxContent.match(/##\s*关于本站\s*🌊([\s\S]*?)(?=$)/);
+        }
+        // 如果有匹配，替换匹配的内容
+        if (match) {
+            data.mdxContent = data.mdxContent.replace(match[1], `\n\n${data.aboutContent}\n\n`);
+        }
+        writeFile(filePath, data.mdxContent);
     }
 
     /**

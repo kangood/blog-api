@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 
 import { BaseController } from '@/modules/restful/base';
 import { Crud } from '@/modules/restful/decorators';
@@ -25,8 +25,8 @@ export class ArticleController extends BaseController<ArticleService> {
      * 获取md文件数据
      */
     @Get('getMdFileData')
-    getMdFileData(@Query('titleEng') titleEng: string) {
-        return this.service.getMdFileData(titleEng);
+    getMdFileData(@Query('titleEng') titleEng: string, @Query('author') author: string) {
+        return this.service.getMdFileData(titleEng, author);
     }
 
     /**
@@ -43,5 +43,15 @@ export class ArticleController extends BaseController<ArticleService> {
     @Get('countListArticleTag')
     countListArticleTag() {
         return this.service.countListArticleTag();
+    }
+
+    /**
+     * 修改关于信息，mdx 文件中的
+     */
+    @Post('updateAboutInfo')
+    async updateAboutInfo(
+        @Body() data: { aboutContent: string; mdxContent: string; isMe: boolean },
+    ) {
+        return this.service.updateAboutInfo(data);
     }
 }
