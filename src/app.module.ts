@@ -13,6 +13,7 @@ import { AppFilter, AppIntercepter, AppPipe } from './modules/core/providers';
 import { DatabaseModule } from './modules/database/database.module';
 import { NoticeModule } from './modules/notice/notice.module';
 import { OrgModule } from './modules/org/org.module';
+import { ProjectModule } from './modules/project/project.module';
 import { OSSModule } from './modules/restful/oss/oss.module';
 import { SystemModule } from './modules/system/system.module';
 import { TagModule } from './modules/tag/tag.module';
@@ -37,6 +38,7 @@ if (IS_DEV) {
         TagModule,
         ArticleModule,
         ClassesModule,
+        ProjectModule,
         ConfigModule.forRoot({
             isGlobal: true,
             envFilePath,
