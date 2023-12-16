@@ -9,4 +9,4 @@
 
 博客前台：[Blog Web Next.js](https://github.com/KangodYan/blog-web-nextjs)
 <br/><br/>
-博客后台：[Blog Admin React](https://github.com/KangodYan/blog-api-nestjs)
+博客后台：[Blog Admin React](https://github.com/KangodYan/blog-admin-react)
