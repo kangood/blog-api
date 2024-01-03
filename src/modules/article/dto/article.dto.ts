@@ -5,7 +5,7 @@ import { DtoValidation } from '@/modules/core/decorators';
 
 import { IsUnique, IsUniqueExist } from '@/modules/database/constraints';
 import { ListWithTrashedQueryDto } from '@/modules/restful/dtos';
-import { PublicOrderType } from '@/modules/system/constants';
+import { ArticleOrderType } from '@/modules/system/constants';
 
 import { ArticleEntity } from '../entity';
 
@@ -14,11 +14,11 @@ import { ArticleEntity } from '../entity';
  */
 @DtoValidation({ type: 'query' })
 export class QueryArticleDto extends ListWithTrashedQueryDto {
-    @IsEnum(PublicOrderType, {
-        message: `排序规则必须是${Object.values(PublicOrderType).join(',')}其中一项`,
+    @IsEnum(ArticleOrderType, {
+        message: `排序规则必须是${Object.values(ArticleOrderType).join(',')}其中一项`,
     })
     @IsOptional()
-    orderBy?: PublicOrderType;
+    orderBy?: ArticleOrderType;
 
     @IsOptional()
     title?: string;

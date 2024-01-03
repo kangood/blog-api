@@ -10,7 +10,7 @@ import { SelectQueryBuilder } from 'typeorm';
 import { BaseService } from '@/modules/database/base';
 
 import { QueryHook } from '@/modules/database/types';
-import { PublicOrderType } from '@/modules/system/constants';
+import { ArticleOrderType } from '@/modules/system/constants';
 
 import { getSnowflakeId } from '@/modules/system/helpers';
 
@@ -168,14 +168,16 @@ export class ArticleService extends BaseService<ArticleEntity, ArticleRepository
      * @param qb
      * @param orderBy 排序方式
      */
-    protected addOrderByQuery(qb: SelectQueryBuilder<ArticleEntity>, orderBy?: PublicOrderType) {
+    protected addOrderByQuery(qb: SelectQueryBuilder<ArticleEntity>, orderBy?: ArticleOrderType) {
         const queryName = this.repository.qbName;
         switch (orderBy) {
             // 按时间倒序
-            case PublicOrderType.CREATED:
+            case ArticleOrderType.CREATED:
                 return qb.orderBy(`${queryName}.created_at`, 'DESC');
-            case PublicOrderType.UPDATED:
+            case ArticleOrderType.UPDATED:
                 return qb.orderBy(`${queryName}.updated_at`, 'DESC');
+            case ArticleOrderType.POSTED:
+                return qb.orderBy(`${queryName}.posted_at`, 'DESC');
             default:
                 return qb.orderBy(`${queryName}.id`, 'ASC');
         }

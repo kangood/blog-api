@@ -6,6 +6,12 @@ export enum PublicOrderType {
     UPDATED = 'updatedAt',
 }
 
+export enum ArticleOrderType {
+    CREATED = 'createdAt',
+    UPDATED = 'updatedAt',
+    POSTED = 'postedAt',
+}
+
 export enum DictionaryType {
     NATION = 'NATION',
     EDUCATION = 'EDUCATION',
