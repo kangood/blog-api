@@ -1,4 +1,4 @@
-## Blog Api NestJS
+## Blog Api
 
 技术栈：
 
@@ -7,6 +7,6 @@
 - 数据库：MySQL
 - 权限认证：NestJS/JWT
 
-博客前台：[Blog Web Next.js](https://github.com/KangodYan/blog-web-nextjs)
+博客前台：[Blog Web](https://github.com/KangodYan/blog-web)
 <br/><br/>
-博客后台：[Blog Admin React](https://github.com/KangodYan/blog-admin-react)
+博客后台：[Blog Admin](https://github.com/KangodYan/blog-admin)
