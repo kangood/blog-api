@@ -11,7 +11,7 @@
  Target Server Version : 80200 (8.2.0)
  File Encoding         : 65001
 
- Date: 22/05/2024 17:12:28
+ Date: 05/06/2024 17:41:02
 */
 
 SET NAMES utf8mb4;
@@ -133,8 +133,9 @@ CREATE TABLE `project` (
 -- Records of project
 -- ----------------------------
 BEGIN;
-INSERT INTO `project` (`id`, `title`, `description`, `href`, `img_src`, `tech_stack`, `sort_value`, `state`, `deleted_at`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (509663286894661, 'blog admin 后台网站', '使用 React 构建的 Blog 后台管理项目', 'https://admin.kangod.top', 'https://raw.githubusercontent.com/KangodYan/blog-admin/master/public/assets/blog-admin-ex.png', '[\"React\", \"TypeScript\", \"Vite\", \"MySQL\", \"TypeORM\", \"TanStackQuery\", \"ArcoDesign\", \"Redux\", \"NestJS\"]', 1, b'1', NULL, '2023-12-11 11:45:13.414066', NULL, '2024-05-21 17:22:45.000000', NULL);
-INSERT INTO `project` (`id`, `title`, `description`, `href`, `img_src`, `tech_stack`, `sort_value`, `state`, `deleted_at`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (509663943692357, 'prune admin 后台网站', '使用 React 构建的快速开发平台 Admin 后台项目', 'https://prune.kangod.top', 'https://raw.githubusercontent.com/KangodYan/prune-admin/main/src/assets/home.png', '[\"React\", \"TypeScript\", \"Vite\", \"TailwindCSS\", \"MySQL\", \"TypeORM\", \"TanStackQuery\", \"AntDesign\", \"NestJS\", \"Zustand\"]', 2, b'1', NULL, '2023-12-11 11:47:53.762224', NULL, '2024-05-21 18:43:42.000000', NULL);
+INSERT INTO `project` (`id`, `title`, `description`, `href`, `img_src`, `tech_stack`, `sort_value`, `state`, `deleted_at`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (509663286894661, 'blog admin 后台网站', '使用 React 构建的 Blog 后台管理项目', 'https://admin.kangod.top', 'https://raw.githubusercontent.com/KangodYan/blog-admin/master/public/assets/blog-admin-ex.png', '[\"React\", \"TypeScript\", \"Vite\", \"MySQL\", \"TypeORM\", \"TanStackQuery\", \"ArcoDesign\", \"Redux\", \"NestJS\"]', 3, b'1', NULL, '2023-12-11 11:45:13.414066', NULL, '2024-05-21 17:22:45.000000', NULL);
+INSERT INTO `project` (`id`, `title`, `description`, `href`, `img_src`, `tech_stack`, `sort_value`, `state`, `deleted_at`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (509663943692357, 'prune admin 后台网站', '使用 React 构建的快速开发平台 Admin 后台项目', 'https://prune.kangod.top', 'https://raw.githubusercontent.com/KangodYan/prune-admin/main/src/assets/home.png', '[\"React\", \"TypeScript\", \"Vite\", \"TailwindCSS\", \"MySQL\", \"TypeORM\", \"TanStackQuery\", \"AntDesign\", \"NestJS\", \"Zustand\"]', 1, b'1', NULL, '2023-12-11 11:47:53.762224', NULL, '2024-05-21 18:43:42.000000', NULL);
+INSERT INTO `project` (`id`, `title`, `description`, `href`, `img_src`, `tech_stack`, `sort_value`, `state`, `deleted_at`, `created_at`, `created_by`, `updated_at`, `updated_by`) VALUES (572369822556229, 'blog web 前台网站', '使用 Next.js + React 构建的 Blog 前台管理项目', 'https://kangod.top', 'https://raw.githubusercontent.com/KangodYan/blog-web/master/public/static/images/home.png', '[\"TypeScript\", \"NextJS\", \"React\", \"MySQL\", \"TailwindCSS\", \"NestJS\", \"Contentlayer\", \"TypeORM\", \"Giscus\"]', 2, b'1', NULL, '2024-06-05 16:18:46.238433', NULL, '2024-06-05 17:39:03.000000', NULL);
 COMMIT;
 
 -- ----------------------------
